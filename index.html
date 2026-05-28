@@ -629,7 +629,18 @@ nums[0];  document.getElementById('mPiece').value ="";
             },300);  
         }  
     };  
-  
+recognition.onerror = (e) => {
+
+    alert("MIC Error: " + e.error);
+
+    micEnabled = false;
+
+    localStorage.setItem("SATYANK_MIC","OFF");
+
+    document.getElementById("micBtn").innerText =
+    "🎤 MIC OFF";
+};
+     
     recognition.onend = () => {    
         if(micEnabled){    
             recognition.start();  
