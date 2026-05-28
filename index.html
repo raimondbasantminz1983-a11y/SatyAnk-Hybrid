@@ -1,4 +1,4 @@
- <!DOCTYPE html>      
+<!DOCTYPE html>      
 <html lang="hi">      
 <head>      
     <meta charset="UTF-8">       
@@ -584,7 +584,7 @@ let history = JSON.parse(localStorage.getItem("SatyAnk_L_v63")) || []; let isLoc
     )();  
   
     recognition.lang = 'hi-IN';    
-    recognition.continuous = true;    
+    recognition.continuous = false;    
     recognition.interimResults = false;    
     recognition.onresult = (e) => {    
         let s =  
@@ -636,6 +636,10 @@ nums[0];  document.getElementById('mPiece').value ="";
         }  
     };  
   
+  recognition.onerror = (e) => {
+console.log(e.error);
+alert("MIC Error: " + e.error);
+};
     recognition.start();  
 }  
   
@@ -811,7 +815,12 @@ endOnly: true
 })  
 ], listeners: { move(event) { if (isLocked) return; let t = event.target; let x = (parseFloat(t.getAttribute('data-x')) || 0) + event.dx; let y = (parseFloat(t.getAttribute('data-y')) || 0) + event.dy; t.style.transform = `translate(${x}px, ${y}px)`; t.setAttribute('data-x', x); t.setAttribute('data-y', y); localStorage.setItem(t.id, JSON.stringify({x, y})); }}});      
       
-    window.onload = () => { document.getElementById('custN').value = "";  
+    window.onload = () => {
+    document.getElementById("micBtn").innerText =
+micEnabled
+? "🎙️ MIC ON"
+: "🎤 MIC OFF";
+     document.getElementById('custN').value = "";  
 document.getElementById('custI').value = "";  
         let st = localStorage.getItem("SatyAnk_CustomTitle"); if(st) document.getElementById("appTitle").innerText = st;      
 document.getElementById('showPanelBtn').style.display = "block";  
